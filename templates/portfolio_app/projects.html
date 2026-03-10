@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block meta_description %}Explore Chinmay Chaudhari's portfolio of projects including Alumni Networking Portal,
+Builder Site Management, and Lab Reports System.{% endblock %}
+
+{% block content %}
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+    <div class="container">
+        <div class="page-hero-content text-center" data-aos="fade-down">
+            <span class="section-badge">Portfolio</span>
+            <h1 class="page-hero-title">My Projects</h1>
+            <p class="page-hero-subtitle">Real-world applications built from scratch</p>
+        </div>
+    </div>
+</section>
+
+<!-- PROJECTS GRID -->
+<section class="section-padded">
+    <div class="container">
+        <div class="row g-4">
+            {% if projects %}
+            {% for project in projects %}
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+                <div class="project-card h-100">
+                    <div class="project-card-header">
+                        {% if project.image %}
+                        <img src="{{ project.image.url }}" alt="{{ project.title }}" class="project-card-image" />
+                        {% else %}
+                        <div class="project-placeholder-img">
+                            <i class="bi bi-window-stack"></i>
+                        </div>
+                        {% endif %}
+                        {% if project.is_featured %}
+                        <span class="badge-featured"><i class="bi bi-star-fill me-1"></i>Featured</span>
+                        {% endif %}
+                    </div>
+                    <div class="project-card-body">
+                        <h5 class="project-title">{{ project.title }}</h5>
+                        <p class="project-desc">{{ project.description }}</p>
+                        <div class="project-tags mt-3">
+                            {% for tech in project.get_tech_list %}
+                            <span class="tech-tag">{{ tech }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="project-card-footer">
+                        {% if project.github_url %}
+                        <a href="{{ project.github_url }}" target="_blank" class="btn-card-link"
+                            id="proj-github-{{ project.id }}">
+                            <i class="bi bi-github me-1"></i>Source Code
+                        </a>
+                        {% endif %}
+                        {% if project.live_url %}
+                        <a href="{{ project.live_url }}" target="_blank" class="btn-card-link btn-card-link-accent"
+                            id="proj-live-{{ project.id }}">
+                            <i class="bi bi-box-arrow-up-right me-1"></i>Live Demo
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+            {% else %}
+            <!-- Default projects fallback -->
+            {% for proj in project_defaults %}
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="project-card h-100">
+                    <div class="project-card-header">
+                        <div class="project-placeholder-img"><i class="bi bi-window-stack"></i></div>
+                    </div>
+                    <div class="project-card-body">
+                        <h5 class="project-title">{{ proj.title }}</h5>
+                        <p class="project-desc">{{ proj.desc }}</p>
+                        <div class="project-tags mt-3">
+                            <span class="tech-tag">Django</span>
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">SQLite</span>
+                        </div>
+                    </div>
+                    <div class="project-card-footer">
+                        <a href="#" class="btn-card-link"><i class="bi bi-github me-1"></i>Source Code</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+            <!-- Always show static cards when no DB data -->
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="project-card h-100">
+                    <div class="project-card-header">
+                        <div class="project-placeholder-img"><i class="bi bi-people-fill"></i></div>
+                    </div>
+                    <div class="project-card-body">
+                        <h5 class="project-title">Alumni Networking &amp; Management Portal</h5>
+                        <p class="project-desc">A web platform that connects alumni with their institutions through
+                            profiles, event management, and job postings for an active community.</p>
+                        <div class="project-tags mt-3">
+                            <span class="tech-tag">Django</span>
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Bootstrap</span>
+                            <span class="tech-tag">SQLite</span>
+                        </div>
+                    </div>
+                    <div class="project-card-footer">
+                        <a href="#" class="btn-card-link" id="alumni-github"><i class="bi bi-github me-1"></i>Source
+                            Code</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="project-card h-100">
+                    <div class="project-card-header">
+                        <div class="project-placeholder-img"><i class="bi bi-building"></i></div>
+                    </div>
+                    <div class="project-card-body">
+                        <h5 class="project-title">Builder Site Operations &amp; Management App</h5>
+                        <p class="project-desc">Construction site management system to track workforce attendance, task
+                            assignments, material usage, and expenses in real time.</p>
+                        <div class="project-tags mt-3">
+                            <span class="tech-tag">Java</span>
+                            <span class="tech-tag">Android</span>
+                            <span class="tech-tag">Firebase</span>
+                            <span class="tech-tag">XML</span>
+                        </div>
+                    </div>
+                    <div class="project-card-footer">
+                        <a href="#" class="btn-card-link" id="builder-github"><i class="bi bi-github me-1"></i>Source
+                            Code</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="project-card h-100">
+                    <div class="project-card-header">
+                        <div class="project-placeholder-img"><i class="bi bi-clipboard2-pulse"></i></div>
+                    </div>
+                    <div class="project-card-body">
+                        <h5 class="project-title">Laboratory Reports Management System</h5>
+                        <p class="project-desc">A digital system for managing lab reports and patient records,
+                            streamlining the workflow from sample collection to report delivery.</p>
+                        <div class="project-tags mt-3">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Django</span>
+                            <span class="tech-tag">MySQL</span>
+                            <span class="tech-tag">HTML/CSS</span>
+                        </div>
+                    </div>
+                    <div class="project-card-footer">
+                        <a href="#" class="btn-card-link" id="lab-github"><i class="bi bi-github me-1"></i>Source
+                            Code</a>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section section-padded">
+    <div class="container text-center" data-aos="zoom-in">
+        <h2 class="cta-title">Have a project idea?</h2>
+        <p class="cta-sub">Let's collaborate and build something amazing together.</p>
+        <a href="{% url 'contact' %}" class="btn btn-primary-custom btn-lg mt-3" id="cta-contact">
+            <i class="bi bi-chat-dots me-2"></i>Get In Touch
+        </a>
+    </div>
+</section>
+
+{% endblock %}

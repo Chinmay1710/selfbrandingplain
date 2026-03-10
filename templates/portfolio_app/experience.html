@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block meta_description %}Chinmay Chaudhari's work experience – Industrial Trainee at I-Tech Systems, working on full
+stack development with Python.{% endblock %}
+
+{% block content %}
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+    <div class="container">
+        <div class="page-hero-content text-center" data-aos="fade-down">
+            <span class="section-badge">Work History</span>
+            <h1 class="page-hero-title">Experience</h1>
+            <p class="page-hero-subtitle">My professional journey so far</p>
+        </div>
+    </div>
+</section>
+
+<!-- EXPERIENCE SECTION -->
+<section class="section-padded">
+    <div class="container" style="max-width: 800px;">
+
+        {% if internships %}
+        {% for intern in internships %}
+        <div class="experience-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+            <div class="exp-card-left">
+                <div class="exp-company-icon"><i class="bi bi-building-fill"></i></div>
+                <div class="exp-line"></div>
+            </div>
+            <div class="exp-card-right">
+                <div class="exp-header">
+                    <div>
+                        <h4 class="exp-role">{{ intern.role }}</h4>
+                        <p class="exp-company"><i class="bi bi-building me-1"></i>{{ intern.company }}</p>
+                    </div>
+                    <span class="exp-duration">{{ intern.get_duration }}</span>
+                </div>
+                {% if intern.location %}
+                <p class="exp-location"><i class="bi bi-geo-alt me-1"></i>{{ intern.location }}</p>
+                {% endif %}
+                <div class="exp-description">{{ intern.description }}</div>
+                {% if intern.get_tech_list %}
+                <div class="project-tags mt-3">
+                    {% for tech in intern.get_tech_list %}
+                    <span class="tech-tag">{{ tech }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+
+        {% else %}
+        <!-- Default internship if DB is empty -->
+        <div class="experience-card" data-aos="fade-up">
+            <div class="exp-card-left">
+                <div class="exp-company-icon"><i class="bi bi-building-fill"></i></div>
+                <div class="exp-line"></div>
+            </div>
+            <div class="exp-card-right">
+                <div class="exp-header">
+                    <div>
+                        <h4 class="exp-role">Industrial Trainee</h4>
+                        <p class="exp-company"><i class="bi bi-building me-1"></i>I-Tech Systems</p>
+                    </div>
+                    <span class="exp-duration">July 2022 – August 2022</span>
+                </div>
+                <div class="exp-description">
+                    <p>Completed an industrial training program at I-Tech Systems, where I gained hands-on experience in
+                        full stack web development using Python.</p>
+                    <ul>
+                        <li>Developed web application modules using Python and Django framework</li>
+                        <li>Worked on database design and integration with backend systems</li>
+                        <li>Collaborated with the development team on real-world client projects</li>
+                        <li>Learned industry best practices for code quality and version control</li>
+                    </ul>
+                </div>
+                <div class="project-tags mt-3">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Django</span>
+                    <span class="tech-tag">HTML/CSS</span>
+                    <span class="tech-tag">Git</span>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+</section>
+
+<!-- WHAT I'M LOOKING FOR -->
+<section class="section-padded section-alt">
+    <div class="container">
+        <div class="section-header text-center" data-aos="fade-up">
+            <span class="section-badge">Opportunities</span>
+            <h2 class="section-title">Looking For</h2>
+        </div>
+        <div class="row g-4 mt-3 justify-content-center">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="lookup-card">
+                    <i class="bi bi-laptop"></i>
+                    <h5>Internships</h5>
+                    <p>Open to summer and part-time internship opportunities in web or mobile development.</p>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="lookup-card">
+                    <i class="bi bi-people"></i>
+                    <h5>Collaboration</h5>
+                    <p>Interested in open-source contributions and team projects that solve real problems.</p>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="lookup-card">
+                    <i class="bi bi-lightbulb"></i>
+                    <h5>Freelance</h5>
+                    <p>Available for freelance web and app development projects.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

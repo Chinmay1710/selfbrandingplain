@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block meta_description %}Get in touch with Chinmay Chaudhari for collaborations, internship opportunities, or just to
+say hello.{% endblock %}
+
+{% block content %}
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+    <div class="container">
+        <div class="page-hero-content text-center" data-aos="fade-down">
+            <span class="section-badge">Say Hello</span>
+            <h1 class="page-hero-title">Get In Touch</h1>
+            <p class="page-hero-subtitle">I'm always open to new opportunities and collaborations</p>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT SECTION -->
+<section class="section-padded">
+    <div class="container">
+        <div class="row g-5">
+
+            <!-- Left: Contact Info -->
+            <div class="col-lg-5" data-aos="fade-right">
+                <h3 class="contact-heading">Let's Work Together</h3>
+                <p class="contact-intro">
+                    Whether you have a project idea, want to collaborate, or just want to connect – I'd love to hear
+                    from you. Feel free to reach out!
+                </p>
+
+                <div class="contact-info-cards mt-4">
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon"><i class="bi bi-envelope-fill"></i></div>
+                        <div>
+                            <div class="contact-info-label">Email</div>
+                            <a href="mailto:chinmay@example.com" class="contact-info-value">
+                                {% if profile %}{{ profile.email }}{% else %}chinmay@example.com{% endif %}
+                            </a>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon"><i class="bi bi-github"></i></div>
+                        <div>
+                            <div class="contact-info-label">GitHub</div>
+                            <a href="https://github.com/chinmaychaudhari" target="_blank"
+                                class="contact-info-value">github.com/chinmaychaudhari</a>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon"><i class="bi bi-linkedin"></i></div>
+                        <div>
+                            <div class="contact-info-label">LinkedIn</div>
+                            <a href="https://linkedin.com/in/chinmaychaudhari" target="_blank"
+                                class="contact-info-value">linkedin.com/in/chinmaychaudhari</a>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon"><i class="bi bi-geo-alt-fill"></i></div>
+                        <div>
+                            <div class="contact-info-label">Location</div>
+                            <span class="contact-info-value">Dhule, Maharashtra, India</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-availability mt-4">
+                    <div class="availability-dot"></div>
+                    <span>Available for internships &amp; freelance projects</span>
+                </div>
+            </div>
+
+            <!-- Right: Form -->
+            <div class="col-lg-7" data-aos="fade-left">
+                <div class="contact-form-card">
+                    <h4 class="contact-form-title">Send a Message</h4>
+                    <form method="post" action="{% url 'contact' %}" id="contactForm" novalidate>
+                        {% csrf_token %}
+                        <div class="row g-3">
+                            <div class="col-sm-6">
+                                <label class="form-label" for="id_name">Full Name <span
+                                        class="text-accent">*</span></label>
+                                {{ form.name }}
+                                {% if form.name.errors %}
+                                <div class="invalid-feedback d-block">{{ form.name.errors|join:", " }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label" for="id_email">Email Address <span
+                                        class="text-accent">*</span></label>
+                                {{ form.email }}
+                                {% if form.email.errors %}
+                                <div class="invalid-feedback d-block">{{ form.email.errors|join:", " }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label" for="id_subject">Subject</label>
+                                {{ form.subject }}
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label" for="id_message">Message <span
+                                        class="text-accent">*</span></label>
+                                {{ form.message }}
+                                {% if form.message.errors %}
+                                <div class="invalid-feedback d-block">{{ form.message.errors|join:", " }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-12 mt-2">
+                                <button type="submit" class="btn btn-primary-custom w-100 btn-lg" id="contactSubmitBtn">
+                                    <i class="bi bi-send me-2"></i>Send Message
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Simple form UX enhancement
+    document.getElementById('contactSubmitBtn').addEventListener('click', function () {
+        const form = document.getElementById('contactForm');
+        if (form.checkValidity()) {
+            this.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Sending...';
+            this.disabled = true;
+        }
+    });
+</script>
+{% endblock %}

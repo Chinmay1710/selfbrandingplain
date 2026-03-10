@@ -1,0 +1,198 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Chinmay Chaudhari – Full Stack Developer{% endblock %}
+
+{% block content %}
+
+<!-- ===================== HERO SECTION ===================== -->
+<section class="hero-section" id="hero">
+    <div class="hero-bg-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+    <div class="container hero-container">
+        <div class="row align-items-center min-vh-100">
+            <div class="col-lg-7" data-aos="fade-right" data-aos-duration="900">
+                <p class="hero-greeting">
+                    <span class="greeting-dot"></span> Hello, World! I'm
+                </p>
+                <h1 class="hero-name">
+                    {% if profile %}{{ profile.name }}{% else %}Chinmay Chaudhari{% endif %}
+                </h1>
+                <h2 class="hero-typed-wrap">
+                    <span id="typed-output"></span>
+                </h2>
+                <p class="hero-tagline">
+                    {% if profile %}{{ profile.tagline }}{% else %}I build scalable web applications and software
+                    solutions.{% endif %}
+                </p>
+                <div class="hero-actions mt-4 d-flex flex-wrap gap-3">
+                    <a href="{% url 'projects' %}" class="btn btn-primary-custom btn-lg" id="hero-view-projects">
+                        <i class="bi bi-folder2-open me-2"></i>View Projects
+                    </a>
+                    {% if profile and profile.resume_pdf %}
+                    <a href="{{ profile.resume_pdf.url }}" download class="btn btn-outline-custom btn-lg"
+                        id="hero-download-resume">
+                        <i class="bi bi-download me-2"></i>Download Resume
+                    </a>
+                    {% else %}
+                    <a href="#" class="btn btn-outline-custom btn-lg" id="hero-download-resume">
+                        <i class="bi bi-download me-2"></i>Download Resume
+                    </a>
+                    {% endif %}
+                    <a href="{% url 'contact' %}" class="btn btn-accent-custom btn-lg" id="hero-contact">
+                        <i class="bi bi-chat-dots me-2"></i>Contact Me
+                    </a>
+                </div>
+                <div class="hero-social mt-4 d-flex gap-3">
+                    <a href="https://github.com/chinmaychaudhari" target="_blank" class="social-badge"><i
+                            class="bi bi-github"></i> GitHub</a>
+                    <a href="https://linkedin.com/in/chinmaychaudhari" target="_blank" class="social-badge"><i
+                            class="bi bi-linkedin"></i> LinkedIn</a>
+                </div>
+            </div>
+            <div class="col-lg-5 text-center mt-5 mt-lg-0" data-aos="fade-left" data-aos-duration="900">
+                <div class="hero-card-floating">
+                    <div class="code-card">
+                        <div class="code-card-header">
+                            <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                        </div>
+                        <div class="code-card-body">
+                            <p><span class="code-keyword">const</span> <span class="code-var">chinmay</span> <span
+                                    class="code-operator">=</span> {</p>
+                            <p class="ps-3"><span class="code-key">name:</span> <span class="code-string">"Chinmay
+                                    Chaudhari"</span>,</p>
+                            <p class="ps-3"><span class="code-key">role:</span> <span class="code-string">"Full Stack
+                                    Developer"</span>,</p>
+                            <p class="ps-3"><span class="code-key">university:</span> <span class="code-string">"MPSTME,
+                                    NMIMS"</span>,</p>
+                            <p class="ps-3"><span class="code-key">skills:</span> [<span
+                                    class="code-string">"Python"</span>, <span class="code-string">"Django"</span>,</p>
+                            <p class="ps-3 code-indent"><span class="code-string">"Java"</span>, <span
+                                    class="code-string">"Android"</span>],</p>
+                            <p class="ps-3"><span class="code-key">available:</span> <span class="code-bool">true</span>
+                            </p>
+                            <p>};</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="scroll-indicator">
+        <a href="{% url 'about' %}" aria-label="Scroll down"><i class="bi bi-chevron-double-down"></i></a>
+    </div>
+</section>
+
+<!-- ===================== QUICK STATS ===================== -->
+<section class="stats-section">
+    <div class="container">
+        <div class="row g-4 justify-content-center">
+            <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="100">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="bi bi-mortarboard-fill"></i></div>
+                    <div class="stat-number">2027</div>
+                    <div class="stat-label">Graduating In</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="200">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="bi bi-folder-fill"></i></div>
+                    <div class="stat-number">{{ featured_projects.count }}+</div>
+                    <div class="stat-label">Projects Built</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="300">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="bi bi-award-fill"></i></div>
+                    <div class="stat-number">2+</div>
+                    <div class="stat-label">Certifications</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="400">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="bi bi-briefcase-fill"></i></div>
+                    <div class="stat-number">1</div>
+                    <div class="stat-label">Internship</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===================== FEATURED PROJECTS PREVIEW ===================== -->
+{% if featured_projects %}
+<section class="section-padded">
+    <div class="container">
+        <div class="section-header text-center" data-aos="fade-up">
+            <span class="section-badge">Portfolio</span>
+            <h2 class="section-title">Featured Projects</h2>
+            <p class="section-subtitle">A selection of my recent work</p>
+        </div>
+        <div class="row g-4 mt-3">
+            {% for project in featured_projects %}
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+                <div class="project-card">
+                    <div class="project-card-header">
+                        {% if project.image %}
+                        <img src="{{ project.image.url }}" alt="{{ project.title }}" class="project-card-image" />
+                        {% else %}
+                        <div class="project-placeholder-img"><i class="bi bi-code-slash"></i></div>
+                        {% endif %}
+                    </div>
+                    <div class="project-card-body">
+                        <h5 class="project-title">{{ project.title }}</h5>
+                        <p class="project-desc">{{ project.description|truncatewords:20 }}</p>
+                        <div class="project-tags">
+                            {% for tech in project.get_tech_list %}
+                            <span class="tech-tag">{{ tech }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="project-card-footer">
+                        {% if project.github_url %}
+                        <a href="{{ project.github_url }}" target="_blank" class="btn-card-link"><i
+                                class="bi bi-github me-1"></i>Code</a>
+                        {% endif %}
+                        {% if project.live_url %}
+                        <a href="{{ project.live_url }}" target="_blank" class="btn-card-link"><i
+                                class="bi bi-box-arrow-up-right me-1"></i>Live</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-5" data-aos="fade-up">
+            <a href="{% url 'projects' %}" class="btn btn-primary-custom">View All Projects <i
+                    class="bi bi-arrow-right ms-1"></i></a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var typed = new Typed('#typed-output', {
+            strings: [
+                'Computer Engineering Student',
+                'Full Stack Developer',
+                'Android Developer',
+                'Python Enthusiast',
+                'Problem Solver'
+            ],
+            typeSpeed: 60,
+            backSpeed: 35,
+            backDelay: 1800,
+            loop: true,
+            showCursor: true,
+            cursorChar: '|'
+        });
+    });
+</script>
+{% endblock %}

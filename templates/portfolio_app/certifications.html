@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block meta_description %}Chinmay Chaudhari's certifications including Deloitte Australia Data Analytics and
+HackerRank Java Programming.{% endblock %}
+
+{% block content %}
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+    <div class="container">
+        <div class="page-hero-content text-center" data-aos="fade-down">
+            <span class="section-badge">Credentials</span>
+            <h1 class="page-hero-title">Certifications</h1>
+            <p class="page-hero-subtitle">Verified skills and professional development</p>
+        </div>
+    </div>
+</section>
+
+<!-- CERTIFICATIONS GRID -->
+<section class="section-padded">
+    <div class="container">
+        <div class="row g-4">
+            {% if certifications %}
+            {% for cert in certifications %}
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+                <div class="cert-card">
+                    <div class="cert-card-top">
+                        {% if cert.image %}
+                        <img src="{{ cert.image.url }}" alt="{{ cert.issuer }}" class="cert-logo" />
+                        {% else %}
+                        <div class="cert-icon-placeholder"><i class="bi bi-award-fill"></i></div>
+                        {% endif %}
+                        <div class="cert-issuer-badge">{{ cert.issuer }}</div>
+                    </div>
+                    <div class="cert-card-body">
+                        <h5 class="cert-title">{{ cert.title }}</h5>
+                        {% if cert.date_issued %}
+                        <p class="cert-date"><i class="bi bi-calendar3 me-1"></i>{{ cert.date_issued|date:"F Y" }}</p>
+                        {% endif %}
+                        {% if cert.description %}<p class="cert-desc">{{ cert.description }}</p>{% endif %}
+                    </div>
+                    {% if cert.credential_url %}
+                    <div class="cert-card-footer">
+                        <a href="{{ cert.credential_url }}" target="_blank" class="btn-card-link"
+                            id="cert-verify-{{ cert.id }}">
+                            <i class="bi bi-patch-check me-1"></i>Verify Credential
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+
+            {% else %}
+            <!-- Default certifications -->
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="cert-card">
+                    <div class="cert-card-top">
+                        <div class="cert-icon-placeholder"
+                            style="background: linear-gradient(135deg, #86BC25, #009A44);">
+                            <i class="bi bi-graph-up-arrow"></i>
+                        </div>
+                        <div class="cert-issuer-badge">Deloitte Australia</div>
+                    </div>
+                    <div class="cert-card-body">
+                        <h5 class="cert-title">Data Analytics Job Simulation</h5>
+                        <p class="cert-date"><i class="bi bi-calendar3 me-1"></i>Forage Virtual Program</p>
+                        <p class="cert-desc">Completed a virtual job simulation focused on data analytics, including
+                            data interpretation, visualization, and business insights.</p>
+                    </div>
+                    <div class="cert-card-footer">
+                        <a href="#" class="btn-card-link" id="cert-deloitte">
+                            <i class="bi bi-patch-check me-1"></i>Verify Credential
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="cert-card">
+                    <div class="cert-card-top">
+                        <div class="cert-icon-placeholder"
+                            style="background: linear-gradient(135deg, #00EA64, #1BA94C);">
+                            <i class="bi bi-filetype-java"></i>
+                        </div>
+                        <div class="cert-issuer-badge">HackerRank</div>
+                    </div>
+                    <div class="cert-card-body">
+                        <h5 class="cert-title">Java Programming Certificate</h5>
+                        <p class="cert-date"><i class="bi bi-calendar3 me-1"></i>HackerRank Platform</p>
+                        <p class="cert-desc">Earned a verified Java programming certification demonstrating proficiency
+                            in object-oriented programming, data structures, and algorithms.</p>
+                    </div>
+                    <div class="cert-card-footer">
+                        <a href="#" class="btn-card-link" id="cert-hackerrank">
+                            <i class="bi bi-patch-check me-1"></i>Verify Credential
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<!-- LEARNING SECTION -->
+<section class="section-padded section-alt">
+    <div class="container text-center" data-aos="fade-up">
+        <span class="section-badge">Always Growing</span>
+        <h2 class="section-title mt-2">Continuously Learning</h2>
+        <p class="section-subtitle">I believe in lifelong learning and regularly upskill through online platforms.</p>
+        <div class="platform-badges mt-4">
+            <span class="platform-badge"><i class="bi bi-mortarboard me-2"></i>Coursera</span>
+            <span class="platform-badge"><i class="bi bi-controller me-2"></i>HackerRank</span>
+            <span class="platform-badge"><i class="bi bi-code-square me-2"></i>LeetCode</span>
+            <span class="platform-badge"><i class="bi bi-play-circle me-2"></i>Forage</span>
+            <span class="platform-badge"><i class="bi bi-youtube me-2"></i>YouTube</span>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

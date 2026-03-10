@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block meta_description %}Learn about Chinmay Chaudhari – his education at MPSTME NMIMS, interests, and background in
+computer engineering.{% endblock %}
+
+{% block content %}
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+    <div class="container">
+        <div class="page-hero-content text-center" data-aos="fade-down">
+            <span class="section-badge">About Me</span>
+            <h1 class="page-hero-title">Know Who I Am</h1>
+            <p class="page-hero-subtitle">Passionate developer, lifelong learner, problem solver.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ABOUT SECTION -->
+<section class="section-padded">
+    <div class="container">
+        <div class="row gy-5 align-items-center">
+
+            <!-- Left: Profile Card -->
+            <div class="col-lg-4" data-aos="fade-right">
+                <div class="about-profile-card">
+                    <div class="about-avatar-wrap">
+                        {% if profile and profile.profile_photo %}
+                        <img src="{{ profile.profile_photo.url }}" alt="Chinmay Chaudhari" class="about-avatar" />
+                        {% else %}
+                        <div class="about-avatar-placeholder">
+                            <span>CC</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <h3 class="about-card-name mt-3">{% if profile %}{{ profile.name }}{% else %}Chinmay Chaudhari{%
+                        endif %}</h3>
+                    <p class="about-card-title">{% if profile %}{{ profile.title }}{% else %}BTech Computer Engineering
+                        Student | Full Stack Developer{% endif %}</p>
+                    <ul class="about-meta-list">
+                        <li><i class="bi bi-geo-alt-fill"></i> Dhule, Maharashtra, India</li>
+                        <li><i class="bi bi-mortarboard-fill"></i> MPSTME, NMIMS University</li>
+                        <li><i class="bi bi-calendar3"></i> Graduating 2027</li>
+                        <li><i class="bi bi-envelope-fill"></i>
+                            {% if profile %}{{ profile.email }}{% else %}chinmay@example.com{% endif %}
+                        </li>
+                    </ul>
+                    <div class="about-social mt-3">
+                        <a href="https://github.com/chinmaychaudhari" target="_blank"><i class="bi bi-github"></i></a>
+                        <a href="https://linkedin.com/in/chinmaychaudhari" target="_blank"><i
+                                class="bi bi-linkedin"></i></a>
+                    </div>
+                    {% if profile and profile.resume_pdf %}
+                    <a href="{{ profile.resume_pdf.url }}" download class="btn btn-primary-custom w-100 mt-3">
+                        <i class="bi bi-download me-2"></i>Download Resume
+                    </a>
+                    {% else %}
+                    <a href="#" class="btn btn-primary-custom w-100 mt-3">
+                        <i class="bi bi-download me-2"></i>Download Resume
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Right: Bio + Summary -->
+            <div class="col-lg-8" data-aos="fade-left">
+                <span class="section-badge">Who I Am</span>
+                <h2 class="section-title mt-2">Computer Engineering Student &amp; Developer</h2>
+                <div class="about-bio">
+                    {% if profile and profile.bio %}
+                    <p>{{ profile.bio }}</p>
+                    {% else %}
+                    <p>Hi! I'm <strong>Chinmay Chaudhari</strong>, a passionate Computer Engineering student at MPSTME,
+                        NMIMS University (Batch of 2027). I love building practical, real-world software solutions that
+                        solve meaningful problems.</p>
+                    <p>My journey in tech started with a Diploma in Computer Engineering at R.C. Patel Polytechnic
+                        College, where I discovered my love for coding, problem-solving, and building things from
+                        scratch.</p>
+                    <p>I've worked on full-stack web applications, Android apps, and database management systems. I
+                        enjoy working with Python, Django, Java, and JavaScript — and I'm always looking to learn
+                        something new.</p>
+                    <p>When I'm not coding, I enjoy collaborating with teams, presenting ideas, and contributing to
+                        projects that make a difference.</p>
+                    {% endif %}
+                </div>
+                <div class="row g-3 mt-2">
+                    <div class="col-sm-6">
+                        <div class="about-interest-card"><i class="bi bi-globe"></i> Web Development</div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="about-interest-card"><i class="bi bi-phone"></i> Android Development</div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="about-interest-card"><i class="bi bi-server"></i> Backend Engineering</div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="about-interest-card"><i class="bi bi-database"></i> Database Design</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- EDUCATION TIMELINE -->
+<section class="section-padded section-alt">
+    <div class="container">
+        <div class="section-header text-center" data-aos="fade-up">
+            <span class="section-badge">Background</span>
+            <h2 class="section-title">Education Timeline</h2>
+        </div>
+        <div class="timeline mt-5">
+            {% if education %}
+            {% for edu in education %}
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <div class="timeline-year">{{ edu.start_year }}{% if edu.end_year %} – {{ edu.end_year }}{% endif %}
+                    </div>
+                    <h4 class="timeline-institution">{{ edu.institution }}</h4>
+                    <p class="timeline-degree">{{ edu.degree }}{% if edu.field_of_study %} – {{ edu.field_of_study }}{%
+                        endif %}</p>
+                    {% if edu.description %}<p class="timeline-desc">{{ edu.description }}</p>{% endif %}
+                    {% if edu.is_current %}<span class="badge-current">Current</span>{% endif %}
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <!-- Default education data if DB empty -->
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <div class="timeline-year">2023 – 2027</div>
+                    <h4 class="timeline-institution">MPSTME, NMIMS University</h4>
+                    <p class="timeline-degree">BTech – Computer Engineering</p>
+                    <p class="timeline-desc">Pursuing Bachelor of Technology in Computer Engineering with focus on
+                        full-stack development, algorithms, and software engineering.</p>
+                    <span class="badge-current">Current</span>
+                </div>
+            </div>
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <div class="timeline-year">2021 – 2023</div>
+                    <h4 class="timeline-institution">R.C. Patel Polytechnic College</h4>
+                    <p class="timeline-degree">Diploma – Computer Engineering</p>
+                    <p class="timeline-desc">Completed Diploma in Computer Engineering with a strong foundation in
+                        programming, databases, and software development.</p>
+                </div>
+            </div>
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <div class="timeline-year">Until 2021</div>
+                    <h4 class="timeline-institution">R.C. Patel Secondary School</h4>
+                    <p class="timeline-degree">SSC (Secondary School Certificate)</p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

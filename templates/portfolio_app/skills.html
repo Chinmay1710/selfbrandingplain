@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block meta_description %}Chinmay Chaudhari's technical skills in Python, Java, Django, Android development,
+databases, and more.{% endblock %}
+
+{% block content %}
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+    <div class="container">
+        <div class="page-hero-content text-center" data-aos="fade-down">
+            <span class="section-badge">Expertise</span>
+            <h1 class="page-hero-title">Skills &amp; Technologies</h1>
+            <p class="page-hero-subtitle">Tools and technologies I work with</p>
+        </div>
+    </div>
+</section>
+
+<!-- SKILLS SECTION -->
+<section class="section-padded">
+    <div class="container">
+
+        {% if skill_groups %}
+        {% for category, skill_list in skill_groups.items %}
+        <div class="skills-group" data-aos="fade-up">
+            <h3 class="skills-group-title">
+                {% if "Language" in category %}<i class="bi bi-code-slash me-2"></i>
+                {% elif "Web" in category %}<i class="bi bi-globe me-2"></i>
+                {% elif "Mobile" in category %}<i class="bi bi-phone me-2"></i>
+                {% elif "Database" in category %}<i class="bi bi-database me-2"></i>
+                {% elif "Tools" in category %}<i class="bi bi-tools me-2"></i>
+                {% else %}<i class="bi bi-people me-2"></i>
+                {% endif %}
+                {{ category }}
+            </h3>
+            <div class="row g-4 mb-5">
+                {% for skill in skill_list %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="skill-card" data-aos="zoom-in" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+                        <div class="skill-card-top">
+                            <div class="skill-name">{{ skill.name }}</div>
+                            <div class="skill-pct">{{ skill.proficiency }}%</div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-bar-fill" data-width="{{ skill.proficiency }}"></div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+
+        {% else %}
+        <!-- Default skills if DB empty -->
+        <!-- Programming Languages -->
+        <div class="skills-group" data-aos="fade-up">
+            <h3 class="skills-group-title"><i class="bi bi-code-slash me-2"></i>Programming Languages</h3>
+            <div class="row g-4 mb-5">
+                {% for skill_name, pct in "Java,90|Python,85|C,75|C++,70|JavaScript,80" | split:"|" %}
+                {% endfor %}
+                <!-- Static fallback -->
+                {% for item in "Java:90,Python:85,C:75,C++:70,JavaScript:80"|split:"," %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="skill-card">
+                        <div class="skill-card-top">
+                            <div class="skill-name">{{ item|slice:":item.index(':')"}}</div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Static full fallback since Django filters can't split on : easily -->
+        <div class="row g-4 mb-4">
+            {% with
+            skills_data="Java,Python,C,C++,JavaScript,HTML,CSS,Django,Bootstrap,Android,MySQL,Firebase,Git,GitHub,VS
+            Code" %}
+            {% for s in skills_data|split:"," %}
+            <div class="col-md-6 col-lg-4">
+                <div class="skill-card" data-aos="zoom-in">
+                    <div class="skill-card-top">
+                        <div class="skill-name">{{ s }}</div>
+                        <div class="skill-pct">80%</div>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-bar-fill" data-width="80"></div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% endwith %}
+        </div>
+        {% endif %}
+
+    </div>
+</section>
+
+<!-- SKILLS ICON CLOUD -->
+<section class="section-padded section-alt">
+    <div class="container">
+        <div class="section-header text-center" data-aos="fade-up">
+            <span class="section-badge">Tech Stack</span>
+            <h2 class="section-title">Technologies I Use</h2>
+        </div>
+        <div class="tech-badges-grid mt-4" data-aos="fade-up" data-aos-delay="100">
+            <span class="tech-badge-large"><i class="bi bi-filetype-py me-1"></i>Python</span>
+            <span class="tech-badge-large"><i class="bi bi-filetype-java me-1"></i>Java</span>
+            <span class="tech-badge-large"><i class="bi bi-filetype-html me-1"></i>HTML5</span>
+            <span class="tech-badge-large"><i class="bi bi-filetype-css me-1"></i>CSS3</span>
+            <span class="tech-badge-large"><i class="bi bi-filetype-js me-1"></i>JavaScript</span>
+            <span class="tech-badge-large"><i class="bi bi-phone me-1"></i>Android</span>
+            <span class="tech-badge-large"><i class="bi bi-database me-1"></i>MySQL</span>
+            <span class="tech-badge-large"><i class="bi bi-fire me-1"></i>Firebase</span>
+            <span class="tech-badge-large"><i class="bi bi-git me-1"></i>Git</span>
+            <span class="tech-badge-large"><i class="bi bi-github me-1"></i>GitHub</span>
+            <span class="tech-badge-large"><i class="bi bi-server me-1"></i>Django</span>
+            <span class="tech-badge-large"><i class="bi bi-bootstrap me-1"></i>Bootstrap</span>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
