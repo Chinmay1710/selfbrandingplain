@@ -4,12 +4,18 @@ Django settings for portfolio_project project.
 
 import os
 from pathlib import Path
+import dj_database_url # Add this if using Render's PostgreSQL
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY
+# Render automatically provides SECRET_KEY via environment variables
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-replace-this-in-production-change-me-now')
+
+# Set DEBUG to False in production by setting the environment variable on Render
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
+
+# Add your Render URL to this list in the Render Dashboard environment variables
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
 
 # APPLICATION DEFINITION
@@ -25,7 +31,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', # WhiteNoise must stay here for static files
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -55,12 +61,17 @@ TEMPLATES = [
 WSGI_APPLICATION = 'portfolio_project.wsgi.application'
 
 # DATABASE
+# This configuration allows you to use SQLite locally and PostgreSQL on Render if provided
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# Use Render's PostgreSQL if the DATABASE_URL environment variable is present
+if os.environ.get('DATABASE_URL'):
+    DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 
 # PASSWORD VALIDATION
 AUTH_PASSWORD_VALIDATORS = [
@@ -79,7 +90,9 @@ USE_TZ = True
 # STATIC FILES
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = BASE_DIR / 'staticfiles' # Mandatory for Gunicorn/Production
+
+# Optimization for serving static files in production
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # MEDIA FILES
