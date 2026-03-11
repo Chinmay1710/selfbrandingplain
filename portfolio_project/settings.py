@@ -15,8 +15,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-replace-this-in-produ
 # Set DEBUG to False in production by setting the environment variable on Render
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-# Add your Render URL to this list in the Render Dashboard environment variables
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+# UPDATE: Added your Render domain explicitly to the fallback list
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'selfbrandingplain.onrender.com,localhost,127.0.0.1').split(',')
 
 # APPLICATION DEFINITION
 INSTALLED_APPS = [
